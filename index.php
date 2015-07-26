@@ -13,6 +13,9 @@ $path = '../../';
  * @param $path
  *
  * @return array
+ *
+ * forked by palibaacsi to add link to mobile sites 26 July 15, 16:45. 
+ *
  */
 function get_hosts( $path ) {
 
@@ -174,7 +177,51 @@ $hosts = get_hosts( $path );
 		</ul>
 	</div>
 	<div class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
-		<h1 class="page-header">VVV Dashboard</h1>
+		<h1 class="page-header">VVV Dashboard = <?php echo dirname ( __FILE__ );?></h1>
+
+											<div id="set-ip" style="float:right;padding-right:4rem;">
+
+						<?php
+						if ($_SERVER["REQUEST_METHOD"] == "POST") {
+						     // collect value of input field
+						     $ip = $_POST['vvvip']; 
+						     if (empty($ip)) {
+						         echo "<h2>IP not set</h2>";
+						     } 
+						}
+						?>
+
+						<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+						   vvvIP: <input type="text" name="vvvip" placeholder="<?php echo $ip ; ?>" >
+						   <input type="submit" value="Set IP">
+						</form>
+
+
+
+									<?php /*
+									
+									echo 'Hello ' . htmlspecialchars($_POST['id']) . '!';
+									?>
+
+											<form action="index.php" method="post">
+												<?php	if ( !isset( $ip ) ) { ?>
+
+											Set VVV IP Address: <br />
+											<input type="text" name="ip" 
+											placeholder="<?php echo $ip ; ?>">
+											<input type="submit" value="set">
+										
+											<?php }  else { ?>
+
+												Your VVV IP address is:  <br />
+												<input type="text" name="ip"
+												placeholder="<?php echo $ip ; ?>">
+												<input type="submit" value="update">
+
+											<?php }	 */?>
+
+											</form>
+											</div>
 
 		<div class="row">
 			<div class="col-sm-12 hosts">
@@ -212,9 +259,10 @@ $hosts = get_hosts( $path );
 									<a class="btn btn-primary btn-xs" href="http://<?php echo $array['host']; ?>/" target="_blank">Visit Site</a>
 
 									<?php if ( 'true' == $array['is_wp'] ) { ?>
-										<a class="btn btn-warning btn-xs" href="http://<?php echo $array['host']; ?>/wp-admin" target="_blank">Admin/Login</a>
+										<a class="btn btn-warning btn-xs" href="http://<?php echo $array['host']; ?>/wp-admin" target="_blank">Dashboard</a>
 									<?php } ?>
 									<a class="btn btn-success btn-xs" href="http://<?php echo $array['host']; ?>/?XDEBUG_PROFILE" target="_blank">Profiler</a>
+									<a class="btn btn-primary btn-xs" href="http://<?php echo substr($array['host'], 0, -3); ?><?php echo $ip ; ?>.xip.io/" target="_blank">Mobile</a>
 								</td>
 							</tr>
 							<?php
@@ -319,7 +367,7 @@ $hosts = get_hosts( $path );
 		</p>
 
 		<p>
-			<small>VVV Dashboard Version: 0.0.5</small>
+			<small>VVV Dashboard Version: 0.0.5.5</small>
 		</p>
 	</div>
 </div>
