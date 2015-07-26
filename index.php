@@ -176,53 +176,42 @@ $hosts = get_hosts( $path );
 			</li>
 		</ul>
 	</div>
+
 	<div class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
 		<h1 class="page-header">VVV Dashboard = <?php echo dirname ( __FILE__ );?></h1>
 
-											<div id="set-ip" style="float:right;padding-right:4rem;">
+					<div id="set-ip" style="float:right;padding-right:4rem;position:relative; z-index: 1111;">
 
-						<?php
-						if ($_SERVER["REQUEST_METHOD"] == "POST") {
-						     // collect value of input field
-						     $ip = $_POST['vvvip']; 
-						     if (empty($ip)) {
-						         echo "<h2>IP not set</h2>";
-						     } 
-						}
-						?>
 
 						<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
-						   vvvIP: <input type="text" name="vvvip" placeholder="<?php echo $ip ; ?>" >
+
+						<?php 
+
+							if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+						     // collect value of input field
+						     $ip = $_POST['vvvip']; 
+						 }
+
+						     if (!isset($ip)) { ?>
+
+						  <p class="search-box"> vvvIP: 
+						  	<input type="text" name="vvvip" placeholder="Need to set IP" >
 						   <input type="submit" value="Set IP">
+						   				<?php }  else { ?>
+
+							Your VVV IP address is:  <br />
+							<input type="text" name="ip"
+							placeholder="<?php echo $ip ; ?>">
+							<input type="submit" value="Update IP">
+
+						<?php 
+							} 
+							?>
+					</p>
 						</form>
 
-
-
-									<?php /*
-									
-									echo 'Hello ' . htmlspecialchars($_POST['id']) . '!';
-									?>
-
-											<form action="index.php" method="post">
-												<?php	if ( !isset( $ip ) ) { ?>
-
-											Set VVV IP Address: <br />
-											<input type="text" name="ip" 
-											placeholder="<?php echo $ip ; ?>">
-											<input type="submit" value="set">
-										
-											<?php }  else { ?>
-
-												Your VVV IP address is:  <br />
-												<input type="text" name="ip"
-												placeholder="<?php echo $ip ; ?>">
-												<input type="submit" value="update">
-
-											<?php }	 */?>
-
-											</form>
-											</div>
-
+						</div>
 		<div class="row">
 			<div class="col-sm-12 hosts">
 				<p>
